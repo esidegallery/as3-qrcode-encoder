@@ -24,23 +24,23 @@ package org.qrcode
 
 		public var bitmapData:BitmapData;
 
-		public function QRCode(errorLevel:int = QRCodeErrorLevel.QRCODE_ERROR_LEVEL_LOW, encodeType:int = QRCodeEncodeType.QRCODE_ENCODE_BYTES)
+		public function QRCode(errorLevel:int = 0, encodeType:int = 2)
 		{
 			this.level = errorLevel;
 			this.type = encodeType;
 		}
 
-		public function encode(content:String):void
+		public function encode(content:String, pixelPerPoint:int = 4, outerFrame:int = 4):void
 		{
 			this.version = 1;
 			this.text = content;
 			encodeString(true);
-			encodeBitmap();
+			encodeBitmap(pixelPerPoint, outerFrame);
 		}
 
-		private function encodeBitmap():void
+		private function encodeBitmap(pixelPerPoint:int = 4, outerFrame:int = 4):void
 		{
-			this.bitmapData = QRImage.image(this.data);
+			this.bitmapData = QRImage.image(this.data, pixelPerPoint, outerFrame);
 		}
 
 		private function encodeString(casesensitive:Boolean = true):void
